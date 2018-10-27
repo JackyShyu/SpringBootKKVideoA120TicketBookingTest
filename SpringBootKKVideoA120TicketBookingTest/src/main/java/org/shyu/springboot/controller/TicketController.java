@@ -18,8 +18,8 @@ public class TicketController {
 	private TicketService ticketService;
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public void createTicket(@RequestBody Ticket ticket) {
-		ticketService.createTicket(ticket);
+	public Ticket createTicket(@RequestBody Ticket ticket) {
+		return ticketService.createTicket(ticket);
 	}
 	
 	@RequestMapping(value="/ticketId/{ticketId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -38,9 +38,15 @@ public class TicketController {
 	}
 	
 	@RequestMapping(value="/ticketId/{ticketId}/email/{newEmail:.+}", method=RequestMethod.PUT)
-	public void updateTicket(@PathVariable("ticketId") int id, @PathVariable("newEmail") String email) {
+	public Ticket updateTicket(@PathVariable("ticketId") int id, @PathVariable("newEmail") String email) {
 		Ticket ticketDB = getTicketById(id);
 		ticketDB.setEmail(email);
 		ticketService.updateTicket(ticketDB);
+		return ticketDB;
+	}
+	
+	@RequestMapping(value="/email/{email}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public Ticket getTicketByEmail(@PathVariable("email") String email) {
+		return ticketService.getTicketByEmail(email);
 	}
 }

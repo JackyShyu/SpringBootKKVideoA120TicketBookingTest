@@ -22,18 +22,28 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public void createTicket(Ticket ticket) {
-		ticketRepository.save(ticket);
+	public Ticket createTicket(Ticket ticket) {
+		return ticketRepository.save(ticket);
 	}
 
 	@Override
-	public void updateTicket(Ticket ticket) {
-		ticketRepository.save(ticket);
+	public Ticket updateTicket(Ticket ticket) {
+		return ticketRepository.save(ticket);
 	}
 
 	@Override
-	public void deleteTicket(int ticketId) {
-		ticketRepository.deleteById(ticketId);
+	public boolean deleteTicket(int ticketId) {
+		boolean isDeleted = false;
+		if (ticketRepository.existsById(ticketId)) {
+			ticketRepository.deleteById(ticketId);
+			isDeleted = true;
+		}
+		return isDeleted;
+	}
+
+	@Override
+	public Ticket getTicketByEmail(String email) {
+		return ticketRepository.findByEmail(email);
 	}
 
 }
