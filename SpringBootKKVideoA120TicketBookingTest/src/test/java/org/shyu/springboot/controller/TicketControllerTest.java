@@ -23,7 +23,7 @@ public class TicketControllerTest {
 	@MockBean
 	private TicketService ticketService;
 	
-/*	@Test
+	@Test
 	@Ignore
 	public void testCreateTicket() throws Exception {
 		Ticket ticket1 = getTicket1();
@@ -64,7 +64,7 @@ public class TicketControllerTest {
 		String inputInJson = mapToJson(tickets);
 		String outputInJson = result.getResponse().getContentAsString();
 		assertThat(HttpStatus.OK.value()).isEqualTo(result.getResponse().getStatus());										
-	}*/
+	}
 	
 	
 	
