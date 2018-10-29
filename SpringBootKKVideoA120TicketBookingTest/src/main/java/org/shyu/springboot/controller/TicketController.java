@@ -4,6 +4,7 @@ import org.shyu.springboot.model.Ticket;
 import org.shyu.springboot.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
+	@CrossOrigin
+	@RequestMapping(value="/create", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Ticket createTicket(@RequestBody Ticket ticket) {
 		return ticketService.createTicket(ticket);
 	}
@@ -27,7 +29,8 @@ public class TicketController {
 		return ticketService.getTicketById(id);
 	}
 	
-	@RequestMapping(value="/allTickets", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	@RequestMapping(value="/alltickets", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Ticket> getAllTickets() {
 		return ticketService.getAllTickets();
 	}

@@ -1,7 +1,6 @@
 package org.shyu.springboot.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,17 +95,6 @@ public class TicketServiceTest {
 		ticket.setDestinationStation("DFW");
 		ticket.setEmail("Lee@Gmail.com");
 		ticket.setPassengerName("Lee");
-		ticket.setSourceStation("LA");
-		return ticket;
-	}
-	
-	private Ticket getTicket3() {
-		Ticket ticket = new Ticket();
-		ticket.setTicketId(3);
-		ticket.setBookingDate(new Date());
-		ticket.setDestinationStation("DFW");
-		ticket.setEmail("Kala@Gmail.com");
-		ticket.setPassengerName("Kala");
 		ticket.setSourceStation("LA");
 		return ticket;
 	}
