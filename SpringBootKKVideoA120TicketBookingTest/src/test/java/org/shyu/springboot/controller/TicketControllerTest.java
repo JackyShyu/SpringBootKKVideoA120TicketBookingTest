@@ -1,41 +1,19 @@
 package org.shyu.springboot.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.shyu.springboot.model.Ticket;
-import org.shyu.springboot.service.TicketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=TicketControllerTest.class, secure=false)
 public class TicketControllerTest {
-	@Autowired
+	/*@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private TicketService ticketService;
+	private TicketService ticketService;*/
 	
-	@Test
+	/*@Test
 	@Ignore
 	public void testCreateTicket() throws Exception {
 		Ticket ticket1 = getTicket1();
@@ -55,9 +33,9 @@ public class TicketControllerTest {
 		String outputInJson = response.getContentAsString();
 		assertThat(outputInJson).isEqualTo(inputInJson);
 		assertThat(HttpStatus.OK.value()).isEqualTo(response.getStatus());
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void testGetAllTickets() throws Exception {
 		Ticket ticket1 = getTicket1();
 		Ticket ticket2 = getTicket2();
@@ -76,16 +54,16 @@ public class TicketControllerTest {
 		String inputInJson = mapToJson(tickets);
 		String outputInJson = result.getResponse().getContentAsString();
 		assertThat(HttpStatus.OK.value()).isEqualTo(result.getResponse().getStatus());										
-	}
+	}*/
 	
 	
 	
-	private String mapToJson(Object object) throws JsonProcessingException {
+	/*private String mapToJson(Object object) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(object);
-	}
+	}*/
 	
-	private Ticket getTicket1() {
+	/*private Ticket getTicket1() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(1);
 		ticket.setBookingDate(new Date());
@@ -94,9 +72,9 @@ public class TicketControllerTest {
 		ticket.setPassengerName("Jacky");
 		ticket.setSourceStation("LA");
 		return ticket;
-	}
+	}*/
 	
-	private Ticket getTicket2() {
+	/*private Ticket getTicket2() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(2);
 		ticket.setBookingDate(new Date());
@@ -105,5 +83,5 @@ public class TicketControllerTest {
 		ticket.setPassengerName("Lee");
 		ticket.setSourceStation("LA");
 		return ticket;
-	}
+	}*/
 }
