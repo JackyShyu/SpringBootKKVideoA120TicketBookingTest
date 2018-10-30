@@ -1,17 +1,36 @@
 package org.shyu.springboot.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Date;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.shyu.springboot.model.Ticket;
+import org.shyu.springboot.service.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=TicketControllerTest.class, secure=false)
+//@WebAppConfiguration
 public class TicketControllerTest {
-	/*@Autowired
+	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private TicketService ticketService;*/
+	private TicketService ticketService;
 	
 	/*@Test
 	@Ignore
@@ -47,7 +66,7 @@ public class TicketControllerTest {
 		Mockito.when(ticketService.getAllTickets()).thenReturn(tickets);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-											.request(HttpMethod.GET, uri)
+											.get(new URI(uri))
 											.accept(MediaType.APPLICATION_JSON);
 													
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -56,14 +75,44 @@ public class TicketControllerTest {
 		assertThat(HttpStatus.OK.value()).isEqualTo(result.getResponse().getStatus());										
 	}*/
 	
+	@Test
+	public void testGetTicket() throws Exception {
+		Ticket ticket1 = getTicket1();
+		
+		String uri = "/api/tickets/ticketId/1";
+		Mockito.when(ticketService.getTicketById(Mockito.anyInt())).thenReturn(ticket1);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+											.get(uri)
+											.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		String inputInJson = mapToJson(ticket1);
+		String outputInJson = result.getResponse().getContentAsString();
+		assertThat(HttpStatus.OK.value()).isEqualTo(result.getResponse().getStatus());
+	}
 	
+	@Test 
+	public void testGetTicketByEmail() throws Exception {
+		Ticket ticket1 = getTicket1();
+		
+		String uri = "/api/tickets/email/Jacky@Gmail.com";
+		Mockito.when(ticketService.getTicketByEmail(Mockito.anyString())).thenReturn(ticket1);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+											.get(uri)
+											.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		String inputInJson = mapToJson(ticket1);
+		String outputInJson = result.getResponse().getContentAsString();
+		assertThat(HttpStatus.OK.value()).isEqualTo(result.getResponse().getStatus());
+	}
 	
-	/*private String mapToJson(Object object) throws JsonProcessingException {
+	private String mapToJson(Object object) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(object);
-	}*/
+	}
 	
-	/*private Ticket getTicket1() {
+	private Ticket getTicket1() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(1);
 		ticket.setBookingDate(new Date());
@@ -72,9 +121,9 @@ public class TicketControllerTest {
 		ticket.setPassengerName("Jacky");
 		ticket.setSourceStation("LA");
 		return ticket;
-	}*/
+	}
 	
-	/*private Ticket getTicket2() {
+	private Ticket getTicket2() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(2);
 		ticket.setBookingDate(new Date());
@@ -83,5 +132,5 @@ public class TicketControllerTest {
 		ticket.setPassengerName("Lee");
 		ticket.setSourceStation("LA");
 		return ticket;
-	}*/
+	}
 }
